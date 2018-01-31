@@ -3,7 +3,7 @@ title: Create .NET Standard 2.0 NuGet Packages with Visual Studio 2017 | Microso
 author: kraigb
 ms.author: kraigb
 manager: ghogen
-ms.date: 05/23/2017
+ms.date: 01/31/2018
 ms.topic: get-started-article
 ms.prod: nuget
 ms.technology: null
@@ -18,28 +18,27 @@ ms.reviewer:
 
 *Applies to NuGet 4.x+ and MSBuild 15.3+ as provided with Visual Studio 2017 Update 3 and later. For earlier versions of Visual Studio 2017, these instructions apply to .NET Standard 1.4 to 1.6 by changing the \<TargetFramework\> property. Also see [Create .NET Standard Packages with Visual Studio 2015](../guides/create-net-standard-packages-vs2015.md) for working with NuGet 3.x+.*
 
-The [.NET Standard Library](/dotnet/articles/standard/library) is a formal specification of .NET APIs intended to be available on all .NET runtimes, thus establishing greater uniformity in the .NET ecosystem. The .NET Standard Library defines a uniform set of BCL (Base Class Library) APIs for all .NET platforms to implement, independent of workload. It enables developers to produce PCLs that are usable across all .NET runtimes, and reduces if not eliminates platform-specific conditional compilation directives in shared code.
+The [.NET Standard Library](/dotnet/articles/standard/library) is a formal specification of .NET APIs intended to be available on all .NET runtimes, thus establishing greater uniformity in the .NET ecosystem. The .NET Standard Library defines a uniform set of BCL (Base Class Library) APIs for all .NET platforms to implement, independent of workload. It enables developers to produce libraries&mdash;and thus NuGet packages&mdash;that are usable across all .NET runtimes, and reduces if not eliminates platform-specific conditional compilation directives in shared code.
 
-This guide walks you through creating a nuget package targeting .NET Standard Library 2.0 with Visual Studio 2017.
+This guide walks you through creating a nuget package targeting .NET Standard Library 2.0 with Visual Studio 2017. (To target .NET Standard 1.4 to 1.6, change the value of `<TargetFramework>` property as noted.)
 
 ## Pre-requisites
 
-This walkthrough requires Visual Studio 2017 Update 3 with the **.NET Core cross-platform development** workload. You can install the Community edition for free from [visualstudio.com](https://www.visualstudio.com/), or use the Professional and Enterprise editions.
+- Visual Studio 2017 15.3 or later with the **.NET Core cross-platform development** workload installed. You can install the Community edition for free from [visualstudio.com](https://www.visualstudio.com/), or use the Professional and Enterprise editions.
 
-The require workload appears as follows in the Visual Studio installer:
-
-![.NET Core cross-platform development workload in the Visual Studio Installer](media/NuGet4-01-Workload.png)
+    ![.NET Core cross-platform development workload in the Visual Studio Installer](media/NuGet4-01-Workload.png)
 
 ## Create the .NET Standard class library project
 
-1. In Visual Studio, **File > New > Project**, expand the **Visual C# > .NET Standard** node, select **Class Library (Net Standard)**, change the name to AppLogger, and click OK.
+1. In Visual Studio, **File > New > Project**, expand the **Visual C# > .NET Standard** node, select **Class Library (Net Standard)**, change the name to "AppLogger" (as used in this walkthrough), and select **OK**.
 
     ![Create new class library project](media/NuGet4-02-NewProject.png)
 
 1. Change the build configuration to **Release**.
-1. Right-click the `AppLogger` project in Solution Explorer, select **Properties**, select the **Build** tab, check the box for **XML documentation file**, and set the filename to just `AppLogger.xml`. Then save the project.
 
-1. Add your code to the component, such as the following (which clearly just outputs messages to the console):
+1. Right-click the AppLogger project in Solution Explorer, select **Properties**, select the **Build** tab, check the box for **XML documentation file**, and set the filename to just `AppLogger.xml`. Then save the project.
+
+1. Add your code to the component, such as the following. (This code clearly just outputs messages to the console, but it suitable to demonstrate building a NuGet package):
 
     ```cs
     namespace AppLogger
